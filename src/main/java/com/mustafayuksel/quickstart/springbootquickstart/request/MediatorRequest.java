@@ -5,36 +5,50 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @ApiModel
 public class MediatorRequest {
 
-    @ApiModelProperty
-    @NotBlank(message = "Request may not be blank")
-    private String request;
-    @ApiModelProperty
-    private int timeOut;
-    @ApiModelProperty
-    @NotBlank(message = "Endpoint may not be blank")
-    private String endpoint;
+	@ApiModelProperty
+	private String request;
+	@ApiModelProperty
+	private int timeOut;
+	@ApiModelProperty
+	@NotBlank(message = "Endpoint may not be blank")
+	private String endpoint;
+	private RequestMethod requestMethod;
 
-    public String getRequest() {
-        return request;
-    }
+	public RequestMethod getRequestMethod() {
+		return requestMethod;
+	}
 
-    public int getTimeOut() {
-        return timeOut;
-    }
+	public String getRequest() {
+		return request;
+	}
 
-    public String getEndpoint() {
-        return endpoint;
-    }
+	public int getTimeOut() {
+		return timeOut;
+	}
 
-    public MediatorRequest() {
-    }
+	public String getEndpoint() {
+		return endpoint;
+	}
 
-    public MediatorRequest(String request, int timeOut, String endpoint) {
-        this.request = request;
-        this.timeOut = timeOut;
-        this.endpoint = endpoint;
-    }
+	public MediatorRequest() {
+	}
+
+	public MediatorRequest(String request, int timeOut, String endpoint, RequestMethod requestMethod) {
+		this.request = request;
+		this.timeOut = timeOut;
+		this.endpoint = endpoint;
+		this.requestMethod = requestMethod;
+	}
+	
+	@JsonIgnore
+	public String getCacheKey() {
+		return getEndpoint() + getRequest();
+	}
 }

@@ -16,15 +16,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Profile("dev")
 public class SwaggerConfig {
-    @Bean
-    public Docket quickStart() {
-        return new Docket(DocumentationType.SWAGGER_2).select().
-                apis(RequestHandlerSelectors.withClassAnnotation(RestController.class)).
-                paths(PathSelectors.any()).build().apiInfo(apiInfo());
-    }
+	@Bean
+	public Docket quickStart() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class)).paths(PathSelectors.any())
+				.build().apiInfo(apiInfo());
+	}
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Spring Boot Quick Start Application")
-                .description("Spring Boot API for Quick Start").build();
-    }
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("Spring Boot Quick Start Application")
+				.description("Spring Boot API for Quick Start").build();
+	}
 }
