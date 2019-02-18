@@ -31,6 +31,18 @@
 				<TimeBasedTriggeringPolicy modulate="true" />
 			</Policies>
 		</RollingFile>
+		<RollingFile name="RollingRequestResponseFile"
+			fileName="${basePath}/request-response-${filePattern}.log"
+			filePattern="${basePath}/request-response-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" />
+			</Policies>
+		</RollingFile>
 		<Console name="console" target="SYSTEM_OUT">
 			<PatternLayout
 				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
@@ -42,10 +54,15 @@
 			additivity="false">
 			<AppenderRef ref="RollingPerformanceFile" level="trace" />
 		</Logger>
+		<Logger name="LoggableDispatcherServlet" level="trace"
+			additivity="false">
+			<AppenderRef ref="RollingRequestResponseFile"
+				level="trace" />
+		</Logger>
 		<Logger
 			name="com.mustafayuksel.quickstart.springbootquickstart"
 			level="trace" additivity="false">
-			<AppenderRef ref="RollingFile" level="trace" />
+			<AppenderRef ref="RollingFile" level="debug" />
 			<AppenderRef ref="console" />
 		</Logger>
 		<Root level="debug">
