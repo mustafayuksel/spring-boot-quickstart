@@ -15,7 +15,7 @@ public class QuickStartExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<String> handleException(Exception ex) {
-		LOGGER.error(ex.getMessage());
+		LOGGER.error(ex);
 		return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
